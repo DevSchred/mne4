@@ -112,15 +112,7 @@ class FormWidgetState extends State<FormWidget> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-            // decoration: BoxDecoration(
-            //     border: Border.all(
-            //       color: Colors.grey,
-            //       width: 1,
-            //     ),
-            //     color: Colors.white,
-            //     borderRadius: const BorderRadius.all(
-            //       Radius.circular(5.0),
-            //     )),
+            color: Colors.white,
             child: loading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
@@ -129,153 +121,140 @@ class FormWidgetState extends State<FormWidget> {
                       final nDataList = _formfields[i];
 
                       return Form(
-                          child: Container(
-                        padding: const EdgeInsets.all(20),
                         child: Column(children: [
-                          Card(
-                            child: Column(children: [
-                              if (nDataList.type == 'text')
-                                Column(children: [
-                                  Container(
-                                    margin: const EdgeInsets.all(15),
-                                    alignment: Alignment.centerLeft,
-                                    padding: const EdgeInsets.only(
-                                        bottom: 5, left: 6),
-                                    child: Text('Add a ${nDataList.name}',
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold)),
+                          Column(children: [
+                            if (nDataList.type == 'text')
+                              Column(children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding:
+                                      const EdgeInsets.only(bottom: 5, left: 6),
+                                  child: Text('Add a ${nDataList.name}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.all(8),
+                                    child: TextFormField(
+                                      controller: _textController,
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.all(15),
+                                          border: const OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.grey[200],
+                                          labelText: nDataList.name),
+                                    )),
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.green)),
+                                    onPressed: () async {
+                                      var responseData = {
+                                        "activity_field_id": nDataList.id,
+                                        "value": _textController.text
+                                      };
+                                      activityResponses.add(responseData);
+                                      debugPrint(activityResponses.toString());
+                                    },
+                                    child: const Text('Save',
+                                        style: TextStyle(color: Colors.white)),
                                   ),
+                                ),
+                              ]),
+                            if (nDataList.type == 'number')
+                              Column(children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 6, top: 5),
+                                  child: Text('Add a ${nDataList.name}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.all(8),
+                                    child: TextFormField(
+                                      controller: _numberController2,
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.all(15),
+                                          border: const OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.grey[200],
+                                          labelText: nDataList.name),
+                                    )),
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.green)),
+                                    onPressed: () async {
+                                      // valueResponses.add(_numberController2.text);
+                                      // idResponses.add(nDataList.id);
+                                      var numberData = {
+                                        "activity_field_id": nDataList.id,
+                                        "value": _numberController2.text
+                                      };
+                                      activityResponses.add(numberData);
+                                      debugPrint(activityResponses.toString());
+
+                                      SharedPreferences localStorage =
+                                          await SharedPreferences.getInstance();
+
+                                      final String encodedData =
+                                          (activityResponses)
+                                              .asMap()
+                                              .toString();
+                                      final String encodedData2 =
+                                          jsonEncode(encodedData);
+                                      localStorage.setString(
+                                          'responses', encodedData2);
+                                    },
+                                    child: const Text('Save',
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                ),
+                                if (isLoading)
                                   Container(
-                                      margin: const EdgeInsets.all(15),
-                                      child: TextFormField(
-                                        controller: _textController,
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.all(15),
-                                            border: const OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.grey[200],
-                                            labelText: nDataList.name),
-                                      )),
-                                  Container(
-                                    margin: const EdgeInsets.all(15),
-                                    alignment: Alignment.centerRight,
+                                    alignment: Alignment.bottomCenter,
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
                                                   Colors.green)),
                                       onPressed: () async {
-                                        var responseData = {
-                                          "activity_field_id": nDataList.id,
-                                          "value": _textController.text
-                                        };
-                                        activityResponses.add(responseData);
-                                        debugPrint(
-                                            activityResponses.toString());
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        await submitResult();
+                                        if (!mounted) return;
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        // Navigator.of(context).pop();
                                       },
-                                      child: const Text('Save',
+                                      child: const Text('Submit',
                                           style:
                                               TextStyle(color: Colors.white)),
                                     ),
-                                  ),
-                                ]),
-                              if (nDataList.type == 'number')
-                                Column(children: [
-                                  Container(
-                                    margin: const EdgeInsets.all(15),
-                                    alignment: Alignment.centerLeft,
-                                    padding: const EdgeInsets.only(
-                                        bottom: 5, left: 6, top: 5),
-                                    child: Text('Add a ${nDataList.name}',
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.all(15),
-                                      child: TextFormField(
-                                        controller: _numberController2,
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.all(15),
-                                            border: const OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.grey[200],
-                                            labelText: nDataList.name),
-                                      )),
-                                  Container(
-                                    margin: const EdgeInsets.all(15),
-                                    alignment: Alignment.centerRight,
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
+                                  )
+                                else
+                                  const Center(
+                                      child: CircularProgressIndicator(
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Colors.green)),
-                                      onPressed: () async {
-                                        // valueResponses.add(_numberController2.text);
-                                        // idResponses.add(nDataList.id);
-                                        var numberData = {
-                                          "activity_field_id": nDataList.id,
-                                          "value": _numberController2.text
-                                        };
-                                        activityResponses.add(numberData);
-                                        debugPrint(
-                                            activityResponses.toString());
-
-                                        SharedPreferences localStorage =
-                                            await SharedPreferences
-                                                .getInstance();
-
-                                        final String encodedData =
-                                            (activityResponses)
-                                                .asMap()
-                                                .toString();
-                                        final String encodedData2 =
-                                            jsonEncode(encodedData);
-                                        localStorage.setString(
-                                            'responses', encodedData2);
-                                      },
-                                      child: const Text('Save',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ),
-                                  ),
-                                  if (isLoading)
-                                    Container(
-                                      alignment: Alignment.bottomCenter,
-                                      child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.green)),
-                                        onPressed: () async {
-                                          setState(() {
-                                            isLoading = false;
-                                          });
-                                          await submitResult();
-                                          if (!mounted) return;
-                                          setState(() {
-                                            isLoading = true;
-                                          });
-                                          // Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Submit',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ),
-                                    )
-                                  else
-                                    const Center(
-                                        child: CircularProgressIndicator(
-                                            backgroundColor:
-                                                Color.fromRGBO(0, 161, 39, 1)))
-                                ]),
-                            ]),
-                          )
+                                              Color.fromRGBO(0, 161, 39, 1)))
+                              ]),
+                          ]),
                         ]),
-                      ));
+                      );
                     })));
   }
 }

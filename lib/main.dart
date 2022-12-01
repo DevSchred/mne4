@@ -1,15 +1,13 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:mne/Actual%20Tasks/activity_list.dart';
+import 'package:mne/Activities/activity_list.dart';
 import 'package:mne/ActivityTasks/activity_task_list.dart';
 import 'package:mne/Forms/form_widget.dart';
 import 'package:mne/Forms/workspace.dart';
-import 'package:mne/Projects/alt_project.dart';
 import 'package:mne/User/splashscreen.dart';
 import 'package:mne/test.dart';
 
-import 'Actual Tasks/alt_task.dart';
 import 'Forms/form_error.dart';
 import 'Home/home.dart';
 import 'Projects/project_list.dart';
@@ -61,10 +59,11 @@ class MyApp extends StatelessWidget {
           }
           if (settings.name == 'activities') {
             return new MaterialPageRoute(
-                builder: (context) => const ProjectTask());
+                builder: (context) => const ActivityList());
           }
           if (settings.name == 'activitytasks') {
-            return new MaterialPageRoute(builder: (context) => const AltTask());
+            return new MaterialPageRoute(
+                builder: (context) => const ActivityTaskList());
           }
           if (settings.name == 'error') {
             return new MaterialPageRoute(

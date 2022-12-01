@@ -6,8 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'carousel_widget.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
-
+  const Home({Key? key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -88,7 +87,6 @@ class _HomeState extends State<Home> {
           //   child: Image.asset('assets/images/dashboard.png',
           //       fit: BoxFit.fitWidth),
           // ),
-
           Container(
               height: 180,
               width: 360,
@@ -138,6 +136,22 @@ class _HomeState extends State<Home> {
                           ),
                         )
                       ])))),
+          Container(
+            height: 50,
+            alignment: Alignment.bottomLeft,
+            padding: const EdgeInsets.only(top: 20, left: 25, bottom: 5),
+            child: const Text('Ongoing Tasks',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
+          ),
+          // for carousel
+          Container(
+            padding: const EdgeInsets.only(top: 15),
+            child: const Carousel(),
+          ),
+          //for all tasks list
           Column(
             children: [
               Container(
@@ -156,22 +170,6 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          Container(
-            height: 50,
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.only(top: 20, left: 25, bottom: 5),
-            child: const Text('Ongoing Tasks',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-          ),
-          // for carousel
-          Container(
-            padding: const EdgeInsets.only(top: 15),
-            child: const Carousel(),
-          ),
-          //for all tasks list
         ])));
   }
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mne/Actual%20Tasks/activity_list.dart';
+import 'package:mne/Activities/activity_list.dart';
 import 'package:mne/ActivityTasks/activity_task_list.dart';
 import 'package:mne/ActivityTasks/activity_task_widget.dart';
-import 'package:mne/Actual%20Tasks/alt_task.dart';
 import 'package:mne/Forms/form_error.dart';
 import 'package:mne/Forms/form_widget.dart';
 import 'package:mne/Forms/workspace.dart';
-import 'package:mne/Projects/alt_project.dart';
 
 import 'package:mne/User/login.dart';
 
@@ -46,9 +44,9 @@ Route<dynamic> controller(RouteSettings settings) {
     case dashboard:
       return MaterialPageRoute(builder: (context) => const Dashboard());
     case activities:
-      return MaterialPageRoute(builder: (context) => const ProjectTask());
+      return MaterialPageRoute(builder: (context) => const ActivityList());
     case activitytasks:
-      return MaterialPageRoute(builder: (context) => const AltTask());
+      return MaterialPageRoute(builder: (context) => const ActivityTaskList());
     case profile:
       return MaterialPageRoute(builder: (context) => const Profile());
     case error:

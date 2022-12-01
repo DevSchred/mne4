@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: Image.asset('assets/images/1.png').image,
+              image: Image.asset('assets/images/splashscreen.png').image,
               fit: BoxFit.fitHeight)),
     );
   }

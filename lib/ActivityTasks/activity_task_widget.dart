@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Network/api.dart';
 
 class ActivityTaskWidget extends StatefulWidget {
+  const ActivityTaskWidget({Key? key}) : super(key: key);
+
   @override
   State<ActivityTaskWidget> createState() => _ActivityTaskWidgetState();
 }

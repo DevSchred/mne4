@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../Design/custom_shape.dart';
-import 'activity_task_widget.dart';
+import 'activity_widget.dart';
 
-class ActivityTaskList extends StatefulWidget {
-  const ActivityTaskList({Key? key}) : super(key: key);
-
+class ActivityList extends StatefulWidget {
+  const ActivityList({Key key}) : super(key: key);
   @override
-  State<ActivityTaskList> createState() => _ActivityTaskListState();
+  _ActivityListState createState() => _ActivityListState();
 }
 
-class _ActivityTaskListState extends State<ActivityTaskList> {
+class _ActivityListState extends State<ActivityList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +18,7 @@ class _ActivityTaskListState extends State<ActivityTaskList> {
             onPressed: () {
               Navigator.pop(context);
             }),
-        backgroundColor: const Color.fromARGB(255, 236, 246, 219),
+        backgroundColor: const Color.fromARGB(255, 251, 167, 32),
         extendBodyBehindAppBar: true,
         body: Column(children: [
           Container(
@@ -30,7 +29,7 @@ class _ActivityTaskListState extends State<ActivityTaskList> {
                     child: Container(
                         padding: const EdgeInsets.only(bottom: 128),
                         height: 300,
-                        child: Image.asset('assets/images/activitiesgreen.png',
+                        child: Image.asset('assets/images/tasks.png',
                             fit: BoxFit.contain))),
                 Container(
                   height: 650,
@@ -53,7 +52,7 @@ class _ActivityTaskListState extends State<ActivityTaskList> {
                       child: Column(children: [
                         Container(
                           height: 630,
-                          child: const ActivityTaskWidget(),
+                          child: const ActivityWidget(),
                         ),
                       ]),
                     ))

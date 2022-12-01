@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'reset_widget.dart';
 
 class Reset extends StatefulWidget {
-  const Reset({Key key}) : super(key: key);
+  const Reset({Key? key}) : super(key: key);
 
   @override
   _ResetState createState() => _ResetState();

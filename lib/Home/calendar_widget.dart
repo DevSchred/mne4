@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_horizontal_calendar/animated_horizontal_calendar.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key key}) : super(key: key);
+  const Calendar({Key? key}) : super(key: key);
 
   @override
   State<Calendar> createState() => _CalendarState();

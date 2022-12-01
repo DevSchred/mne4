@@ -97,9 +97,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         child: TextFormField(
                           controller: emailController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          // ignore: missing_return
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Field cannot be empty';
                             }
                           },

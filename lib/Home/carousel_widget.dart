@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class Carousel extends StatefulWidget {
-  const Carousel({Key key}) : super(key: key);
+  const Carousel({Key? key}) : super(key: key);
 
   @override
   _CarouselState createState() => _CarouselState();

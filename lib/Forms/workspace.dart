@@ -4,7 +4,7 @@ import '../Design/custom_shape.dart';
 import 'form_widget.dart';
 
 class Workspace extends StatefulWidget {
-  const Workspace({Key key}) : super(key: key);
+  const Workspace({Key? key}) : super(key: key);
 
   @override
   State<Workspace> createState() => WorkspaceState();
@@ -16,21 +16,22 @@ class WorkspaceState extends State<Workspace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: true,
-          centerTitle: true,
-          title: const Text('Activity Details',
-              style: TextStyle(color: Colors.black))),
       resizeToAvoidBottomInset: false,
+      backgroundColor: const Color.fromARGB(255, 236, 246, 219),
       body: Column(
         children: [
           Container(
               alignment: Alignment.center,
-              child: Column(children: [
+              child: Stack(clipBehavior: Clip.none, children: [
+                ClipPath(
+                    clipper: CustomShape(),
+                    child: Container(
+                        padding: const EdgeInsets.only(bottom: 128),
+                        height: 335,
+                        child: Image.asset('assets/images/fields.png',
+                            fit: BoxFit.fitWidth))),
                 Container(
-                  height: 50,
+                  height: 650,
                   width: double.infinity,
                   color: Colors.transparent,
                 ),
@@ -50,7 +51,7 @@ class WorkspaceState extends State<Workspace> {
                       child: Column(
                         children: [
                           Container(
-                              height: 650,
+                              height: 450,
                               width: double.infinity,
                               child: const FormWidget()),
                           // if (isLoading)

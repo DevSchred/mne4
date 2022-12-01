@@ -8,8 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'project_model.dart';
 
 class ProjectWidget extends StatefulWidget {
-  const ProjectWidget({Key key}) : super(key: key);
-
+  const ProjectWidget({Key? key}) : super(key: key);
   @override
   State<ProjectWidget> createState() => _ProjectWidgetState();
 }
@@ -71,8 +70,6 @@ class _ProjectWidgetState extends State<ProjectWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            width: 360,
             color: Colors.white,
             child: loading
                 ? const Center(child: CircularProgressIndicator())
@@ -82,92 +79,97 @@ class _ProjectWidgetState extends State<ProjectWidget> {
                       final nDataList = _projects[i];
                       return Card(
                           elevation: 2,
-                          color: const Color.fromRGBO(247, 251, 241, 1),
+                          color: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0,
+                                top: 32.0,
                                 bottom: 22.0,
                                 left: 16.0,
                                 right: 16.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
                                   Container(
-                                    width: 100,
-                                    child: Image.asset('assets/images/2.png'),
-                                  ),
-                                  // Container(
-                                  //     width: 100,
-                                  //     child: Image.asset(
-                                  //         'assets/images/projectlogo2.png')),
-                                  // project details
-                                  Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 5),
-                                            child: Text(nDataList.title,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
-                                                    color: Colors.black))),
-                                        // for due date
-                                        Container(
-                                            child: Row(children: [
-                                          Container(
-                                              padding: const EdgeInsets.only(
-                                                  right: 10, top: 8),
-                                              child: const Icon(Icons
-                                                  .calendar_month_outlined)),
-                                          RichText(
-                                              text: TextSpan(children: [
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: RichText(
+                                          textAlign: TextAlign.center,
+                                          text: TextSpan(children: [
                                             const TextSpan(
-                                                text: 'Due: ',
+                                                text: 'Project Name: ',
                                                 style: TextStyle(
-                                                    fontSize: 14,
+                                                    fontSize: 16,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black)),
                                             TextSpan(
-                                                text: nDataList.endDate,
+                                                text: nDataList.title,
                                                 style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black))
-                                          ])),
-                                        ])),
-                                        Container(
-                                            child: IconButton(
-                                          icon: const Icon(
-                                              Icons.more_horiz_outlined),
-                                          // style: ButtonStyle(
-                                          //     backgroundColor:
-                                          //         MaterialStateProperty.all<
-                                          //             Color>(const Color
-                                          //                 .fromRGBO(
-                                          //             104, 144, 43, 1))),
+                                          ]))),
+                                  // RichText(
+                                  //     text: TextSpan(children: [
+                                  //   const TextSpan(
+                                  //       text: 'Project Location: ',
+                                  //       style: TextStyle(
+                                  //           fontSize: 14,
+                                  //           fontWeight: FontWeight.bold,
+                                  //           color: Colors.black)),
+                                  //   TextSpan(
+                                  //       text: nDataList.location,
+                                  //       style: const TextStyle(
+                                  //           color: Colors.black))
+                                  // ])),
+                                  RichText(
+                                      text: TextSpan(children: [
+                                    const TextSpan(
+                                        text: 'Project Description: ',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                    TextSpan(
+                                        text: nDataList.description,
+                                        style: const TextStyle(
+                                            fontSize: 14, color: Colors.black))
+                                  ])),
+                                  Container(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      alignment: Alignment.bottomRight,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      const Color.fromRGBO(
+                                                          104, 144, 43, 1))),
                                           onPressed: () async {
                                             SharedPreferences localStorage =
                                                 await SharedPreferences
                                                     .getInstance();
                                             localStorage.setString(
                                                 'project_id', nDataList.id);
-                                            localStorage.setString(
-                                                'project_name',
-                                                nDataList.title);
-                                            localStorage.setString(
-                                                'project_desc',
-                                                nDataList.description);
-                                            localStorage.setString(
-                                                'project_due',
-                                                nDataList.endDate);
                                             // ignore: use_build_context_synchronously
                                             Navigator.pushNamed(
                                                 context, 'activities');
                                           },
-                                        )),
-                                      ]),
+                                          child: const Text(
+                                            'See Tasks',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          )))
+                                  // RichText(
+                                  //     text: TextSpan(children: [
+                                  //   const TextSpan(
+                                  //       text: 'Project Completion Date: ',
+                                  //       style: TextStyle(
+                                  //           fontSize: 14,
+                                  //           fontWeight: FontWeight.bold,
+                                  //           color: Colors.black)),
+                                  //   TextSpan(
+                                  //       text: nDataList.endDate,
+                                  //       style: const TextStyle(
+                                  //           color: Colors.black))
+                                  // ])),
                                 ]),
                           ));
                     },

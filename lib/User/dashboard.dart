@@ -8,7 +8,7 @@ import '../Projects/project_list.dart';
 import '../test.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key key}) : super(key: key);
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -47,8 +47,8 @@ class _DashboardState extends State<Dashboard> {
             label: 'Projects',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_outlined),
-            label: 'Scheduler',
+            icon: Icon(Icons.list),
+            label: 'Tasks',
           )
         ],
       ),
